@@ -1,7 +1,7 @@
 package com.recru1_t.ui.menus;
 
-
 import com.recru1_t.logik.Absence;
+import com.recru1_t.logik.DataSaver;
 import com.recru1_t.logik.WorkDay;
 import com.recru1_t.ui.helper.TimePickerDialog;
 import com.recru1_t.ui.model.Menu;
@@ -23,6 +23,7 @@ public class Add implements Menu {
 
     private Stage stage;
     private BorderPane pane = new BorderPane();
+    private DataSaver dataSaver;
 
     private Region setup() {
 
@@ -64,16 +65,14 @@ public class Add implements Menu {
         Label absenceLabel = new Label("Select Absence:");
         absenceBox.getChildren().addAll(absenceLabel);
 
-
         ObservableList<String> absenceOptions = javafx.collections.FXCollections.observableArrayList();
         for (Absence abs : Absence.values()) {
             absenceOptions.add(abs.getDescription());
         }
 
-       ComboBox<String> absenceComboBox = new ComboBox<String>(absenceOptions);
+        ComboBox<String> absenceComboBox = new ComboBox<String>(absenceOptions);
         absenceComboBox.getSelectionModel().select(Absence.NONE.getDescription());
         absenceBox.getChildren().add(absenceComboBox);
-
 
         Label confirmLabel = new Label(datePicker.getValue() + " " + startTimeTextField.getText() + " - "
                 + endTimeTextField.getText());
@@ -84,7 +83,8 @@ public class Add implements Menu {
         }
 
         startTimeTextField.textProperty().addListener((obs, oldVal, newVal) -> {
-            if (!newVal.isEmpty() && !endTimeTextField.getText().isEmpty() && absenceComboBox.getValue().equals(Absence.NONE.getDescription())) {
+            if (!newVal.isEmpty() && !endTimeTextField.getText().isEmpty()
+                    && absenceComboBox.getValue().equals(Absence.NONE.getDescription())) {
                 confirmLabel.setText(datePicker.getValue() + " " + startTimeTextField.getText() + " - "
                         + endTimeTextField.getText());
                 confirmButton.setDisable(false);
@@ -94,7 +94,8 @@ public class Add implements Menu {
             }
         });
         endTimeTextField.textProperty().addListener((obs, oldVal, newVal) -> {
-            if (!newVal.isEmpty() && !startTimeTextField.getText().isEmpty() && absenceComboBox.getValue().equals(Absence.NONE.getDescription())) {
+            if (!newVal.isEmpty() && !startTimeTextField.getText().isEmpty()
+                    && absenceComboBox.getValue().equals(Absence.NONE.getDescription())) {
                 confirmLabel.setText(datePicker.getValue() + " " + startTimeTextField.getText() + " - "
                         + endTimeTextField.getText());
                 confirmButton.setDisable(false);
@@ -119,17 +120,17 @@ public class Add implements Menu {
             }
         });
 
-
-
         confirmButton.setOnAction(e -> {
             if (!absenceComboBox.getValue().equals(Absence.NONE.getDescription())) {
                 // Handle absence case
-                WorkDay workDay = new WorkDay(Absence.valueOf(absenceComboBox.getValue().toUpperCase()), datePicker.getValue());
+                WorkDay workDay = new WorkDay(Absence.valueOf(absenceComboBox.getValue().toUpperCase()),
+                        datePicker.getValue());
                 // For now, just clear the fields and disable the button
                 absenceComboBox.getSelectionModel().select(Absence.NONE.getDescription());
                 startTimeTextField.clear();
                 endTimeTextField.clear();
                 confirmButton.setDisable(true);
+                dataSaver.addWorkDay(workDay);
                 return;
             }
             // datePicker.setValue(null);
@@ -140,6 +141,7 @@ public class Add implements Menu {
             startTimeTextField.clear();
             endTimeTextField.clear();
             confirmButton.setDisable(true);
+            dataSaver.addWorkDay(workDay);
         });
 
         HBox confirmBox = new HBox(10);
@@ -153,6 +155,10 @@ public class Add implements Menu {
         pane.setStyle("-fx-padding: 20px;");
 
         return pane;
+    }
+    @Override
+    public void setDataSaver(DataSaver dataSaver) {
+        this.dataSaver = dataSaver;
     }
 
     @Override

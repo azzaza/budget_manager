@@ -1,0 +1,40 @@
+{
+  "month" : 10,
+  "year" : 2025,
+  "totalWorkHours" : 25,
+  "totalWorkMinutes" : 1,
+  "workDays" : [ {
+    "startHour" : 8,
+    "startMinute" : 22,
+    "endHour" : 17,
+    "endMinute" : 23,
+    "wrokHours" : 9,
+    "workMinutes" : 1,
+    "overTimeHours" : 0,
+    "ovetTimeMinutes" : 0,
+    "absence" : "NONE",
+    "date" : [ 2025, 10, 27 ]
+  }, {
+    "startHour" : 11,
+    "startMinute" : 24,
+    "endHour" : 17,
+    "endMinute" : 24,
+    "wrokHours" : 6,
+    "workMinutes" : 0,
+    "overTimeHours" : 0,
+    "ovetTimeMinutes" : 0,
+    "absence" : "NONE",
+    "date" : [ 2025, 10, 28 ]
+  }, {
+    "startHour" : 8,
+    "startMinute" : 23,
+    "endHour" : 18,
+    "endMinute" : 23,
+    "wrokHours" : 10,
+    "workMinutes" : 0,
+    "overTimeHours" : 0,
+    "ovetTimeMinutes" : 0,
+    "absence" : "NONE",
+    "date" : [ 2025, 10, 29 ]
+  } ]
+}

@@ -1,9 +1,9 @@
 package com.recru1_t.ui;
 
-
 import java.util.HashMap;
 import java.util.Map;
 
+import com.recru1_t.logik.DataSaver;
 import com.recru1_t.ui.model.MenuBuilder;
 import com.recru1_t.ui.model.Menus;
 
@@ -18,17 +18,20 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        Map<Menus,Scene> scenes = new HashMap<>();
-        for (Menus menu: Menus.values()){
-            MenuBuilder builder = new MenuBuilder(menu,stage,scenes);
-            Scene scene = new Scene(builder.build(),800,600);
+        DataSaver dataSaver = new DataSaver();
+
+        Map<Menus, Scene> scenes = new HashMap<>();
+        for (Menus menu : Menus.values()) {
+            menu.setDataSaver(dataSaver);
+            MenuBuilder builder = new MenuBuilder(menu, stage, scenes);
+            Scene scene = new Scene(builder.build(), 1200, 900);
             scenes.put(menu, scene);
         }
-        
+
         stage.setScene(scenes.get(Menus.ADD));
         stage.setTitle(Menus.ADD.getMenuName());
         // stage.setScene(mainScene);
-        stage.show();   
+        stage.show();
     }
 
     public static void main(String[] args) {

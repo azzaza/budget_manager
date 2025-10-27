@@ -1,5 +1,6 @@
 package com.recru1_t.logik;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class WorkMonth {
@@ -23,8 +24,17 @@ public class WorkMonth {
     public int getMonth() {
         return month;
     }   
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
     public int getYear() {
         return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
     public int getTotalWorkHours() {
@@ -36,6 +46,15 @@ public class WorkMonth {
 
     public List<WorkDay> getWorkDays() {
         return workDays;
+    }
+
+    public WorkDay getWorkDayByDate(LocalDate date) {
+        for (WorkDay day : workDays) {
+            if (day.getDate().equals(date)) {
+                return day;
+            }
+        }
+        return null; 
     }
 
     public void addWorkDay(WorkDay workDay) {

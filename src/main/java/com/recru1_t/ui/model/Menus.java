@@ -1,5 +1,6 @@
 package com.recru1_t.ui.model;
 
+import com.recru1_t.logik.DataSaver;
 import com.recru1_t.ui.menus.Add;
 import com.recru1_t.ui.menus.Settings;
 import com.recru1_t.ui.menus.Table;
@@ -17,6 +18,11 @@ public enum Menus {
         this.menuName = menuName;
         this.header = header;
         this.menu = menu;
+        
+    }
+
+    public void setDataSaver(DataSaver ds){
+        this.menu.setDataSaver(ds);
     }
 
     public String getMenuName() {
